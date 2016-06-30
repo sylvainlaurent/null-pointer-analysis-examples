@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.sylvainlaurent</groupId>
+  <artifactId>null-pointer-analysis-examples</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <description>Examples to demonstrate Null Pointer Analysis with eclipse, maven and IntelliJ</description>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <modules>
+    <module>no-external-annotations</module>
+    <module>with-external-annotations</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>2.0.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jdt</groupId>
+        <artifactId>org.eclipse.jdt.annotation</artifactId>
+        <version>2.0.0</version>
+      </dependency>
+      <!-- <dependency> -->
+      <!-- <groupId>junit</groupId> -->
+      <!-- <artifactId>junit</artifactId> -->
+      <!-- <version>4.12</version> -->
+      <!-- <scope>test</scope> -->
+      <!-- </dependency> -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>19.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.5.1</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>not-m2e</id>
+      <activation>
+        <property>
+          <name>!m2e.version</name>
+        </property>
+      </activation>
+      <properties>
+        <tycho-version>0.25.0</tycho-version>
+      </properties>
+      <repositories>
+        <repository>
+          <id>ossrh-snapshots</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+          <snapshots>
+            <enabled>true</enabled>
+            <checksumPolicy>warn</checksumPolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <executions>
+                <execution>
+                  <!-- check nullability using jdt compiler, only for compile, not for testCompile -->
+                  <id>compile</id>
+                  <phase>compile</phase>
+                  <goals>
+                    <goal>compile</goal>
+                  </goals>
+                  <configuration>
+                    <compilerId>jdt</compilerId>
+                    <compilerArgs>
+                      <!-- <arg>-properties ${project.basedir}/.settings/org.eclipse.jdt.core.prefs</arg> -->
+                      <arg>-properties</arg>
+                      <arg>${project.basedir}/.settings/org.eclipse.jdt.core.prefs</arg>
+                      <arg>-annotationpath</arg>
+                      <arg>CLASSPATH</arg>
+                    </compilerArgs>
+                  </configuration>
+                </execution>
+              </executions>
+              <dependencies>
+                <dependency>
+                  <groupId>org.eclipse.tycho</groupId>
+                  <artifactId>tycho-compiler-jdt</artifactId>
+                  <version>${tycho-version}</version>
+                </dependency>
+              </dependencies>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
+</project>
