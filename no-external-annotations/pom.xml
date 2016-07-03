@@ -9,12 +9,6 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <properties>
-    <java.version>1.8</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
@@ -29,6 +23,8 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
+      <!-- using a different version from with-external-annotations to make sure eclipse does not try to use external annotations -->
+      <version>18.0</version>
     </dependency>
   </dependencies>
 </project>

@@ -78,14 +78,15 @@ public class EverythingNonNullByDefault {
 		// should not report an error
 		name.toString();
 
-		// should report o.city as being potentially null
-		o.city.toString();
-
 		if (o.city != null) {
 			// "syntactic null analysis for fields" allows to test and then use
 			// without complaints
 			o.city.toString();
 		}
+
+		// should report o.city as being potentially null
+		o.city.toString();
+
 		if (o.getNullableCity() != null) {
 			// there's no syntactic null analysis for getters
 			o.getNullableCity().toString();
