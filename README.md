@@ -7,11 +7,14 @@ The best analysis is performed using [external annotations](http://help.eclipse.
 
 [This repository/project](https://github.com/sylvainlaurent/eclipse-external-annotations) contains a (non-exhaustive but growing) number of external annotations for usual classes (e.g. Map, List, some guava classes...).
 
-To automatically associate an "annotation path" with the "Maven Dependencies" and "JRE" libraries in eclipse build path, install eclipse-external-annotations-m2e-plugin from [this p2 repository](http://sylvainlaurent.github.io/eclipse-external-annotations/p2/).
-Then add a maven property `m2e.jdt.annotationpath` in your pom, as demonstrated in [with-external-annotations/pom.xml](with-external-annotations/pom.xml).
-And finally perform a full `Maven/Update project...` in eclipse.
+## Inside eclipse IDE
+To automatically associate an "annotation path" with the "Maven Dependencies" and "JRE" libraries in eclipse build path:
+- install eclipse-external-annotations-m2e-plugin from [this p2 repository](http://sylvainlaurent.github.io/eclipse-external-annotations/p2/).
+- add a maven property `m2e.jdt.annotationpath` in your pom, as demonstrated in [with-external-annotations/pom.xml](with-external-annotations/pom.xml).
+- perform a full `Maven/Update project...` in eclipse.
+
 Tip: place the property in a `m2e` profile activated only inside eclipse, not in the command-line (see below for command-line usage).
-Using a source project for external annotations in the same eclipse workspace allows to quickly add missing annotations directly from eclipse (by pressing Cmd-1 or Ctr-1 on the type of a method signature).
+Using a source project for external annotations in the same eclipse workspace allows to quickly [add missing annotations directly from eclipse](http://help.eclipse.org/neon/topic/org.eclipse.jdt.doc.user/tasks/task-using_external_null_annotations.htm?cp=1_3_9_2_2#create).
 
 ```xml
     <profile>
@@ -28,6 +31,7 @@ Using a source project for external annotations in the same eclipse workspace al
     </profile>
 ```
 
+## When running maven from the command-line
 To perform null-analysis during a maven build, the jdt compiler must be used in place of the default javac, as demonstrated in the `not-m2e` maven profile of [with-external-annotations/pom.xml](with-external-annotations/pom.xml).
 
 ```xml
