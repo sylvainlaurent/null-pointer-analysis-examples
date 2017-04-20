@@ -4,7 +4,7 @@
   <groupId>com.github.sylvainlaurent</groupId>
   <artifactId>null-pointer-analysis-examples</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
+
   <description>Examples to demonstrate Null Pointer Analysis with eclipse, maven and IntelliJ</description>
 
   <properties>
@@ -13,31 +13,31 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
-  <modules>
-    <module>no-external-annotations</module>
-    <module>with-external-annotations</module>
-  </modules>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>com.google.code.findbugs</groupId>
-        <artifactId>jsr305</artifactId>
-        <version>2.0.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jdt</groupId>
-        <artifactId>org.eclipse.jdt.annotation</artifactId>
-        <version>2.0.0</version>
-      </dependency>
-      <!-- <dependency> -->
-      <!-- <groupId>junit</groupId> -->
-      <!-- <artifactId>junit</artifactId> -->
-      <!-- <version>4.12</version> -->
-      <!-- <scope>test</scope> -->
-      <!-- </dependency> -->
-    </dependencies>
-  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>2.0.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jdt</groupId>
+      <artifactId>org.eclipse.jdt.annotation</artifactId>
+      <version>2.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>15.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>19.0</version>
+    </dependency>
+  </dependencies>
 
   <build>
     <pluginManagement>
@@ -58,6 +58,17 @@
 
   <profiles>
     <profile>
+      <id>m2e</id>
+      <activation>
+        <property>
+          <name>m2e.version</name>
+        </property>
+      </activation>
+      <properties>
+        <m2e.jdt.annotationpath>/eclipse-external-annotations/src/main/resources</m2e.jdt.annotationpath>
+      </properties>
+    </profile>
+    <profile>
       <id>not-m2e</id>
       <activation>
         <property>
@@ -65,7 +76,7 @@
         </property>
       </activation>
       <properties>
-        <tycho-version>0.25.0</tycho-version>
+        <tycho-version>0.26.0</tycho-version>
       </properties>
       <repositories>
         <repository>
@@ -77,6 +88,15 @@
           </snapshots>
         </repository>
       </repositories>
+
+      <dependencies>
+        <dependency>
+          <groupId>com.github.sylvainlaurent</groupId>
+          <artifactId>eclipse-external-annotations</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+          <scope>provided</scope>
+        </dependency>
+      </dependencies>
 
       <build>
         <pluginManagement>
