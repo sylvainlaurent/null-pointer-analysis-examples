@@ -89,7 +89,7 @@ public class EverythingNonNullByDefault {
         return l.get(0);
     }
 
-    public static <@Nullable T extends CharSequence> T explicitelyNullableBoundedType(List<T> l) {
+    public static <@Nullable T extends @Nullable CharSequence> T explicitelyNullableBoundedType(List<T> l) {
         // should not report an error
         l.add(null);
 

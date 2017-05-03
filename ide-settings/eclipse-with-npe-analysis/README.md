@@ -1,0 +1,1 @@
+Copy the ``org.eclipse.jdt.core.prefs`` to ``null-pointer-analysis-examples/.settings``

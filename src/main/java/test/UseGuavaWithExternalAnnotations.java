@@ -17,5 +17,6 @@ public class UseGuavaWithExternalAnnotations {
         final String nonNull2 = MoreObjects.firstNonNull(nullStr, "foo");
         // should not complain
         nonNull2.toString();
+
     }
 }
