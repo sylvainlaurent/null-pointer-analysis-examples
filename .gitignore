@@ -1,6 +1,5 @@
 .classpath
 .project
 target/
-.idea/
 *.iml
 *.md.html
