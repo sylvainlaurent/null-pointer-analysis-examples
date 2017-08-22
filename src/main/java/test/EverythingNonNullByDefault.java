@@ -69,9 +69,7 @@ public class EverythingNonNullByDefault {
     @NonNullByDefault({ PARAMETER, RETURN_TYPE, FIELD, TYPE_BOUND, TYPE_ARGUMENT, TYPE_PARAMETER })
     public static <T> T typeArgumentNonNull(List<T> l) {
         l.add(null);
-        // #Eclipse 4.6.3 bug?# we should have no error because
-        // @NonNullByDefault with TYPE_PARAMETER should treat T as @Nonnull and
-        // therefore l.get(0) too
+
         l.get(0).toString();
         return l.get(0);
     }
@@ -118,7 +116,7 @@ public class EverythingNonNullByDefault {
         if (o.city != null) {
             o.setName("foo");
             // now "syntactic null analysis for fields" is not applied because
-            // there was a satement between the test for nullability of the
+            // there was a statement between the test for nullability of the
             // field and its usage. Eclipse has no means to know that setName()
             // did not modify the city field
             o.city.toString();

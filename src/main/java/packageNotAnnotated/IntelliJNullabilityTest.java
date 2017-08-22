@@ -19,7 +19,7 @@ public class IntelliJNullabilityTest {
         MyNonNullGenericClass<@NonNull String> toto = new MyNonNullGenericClass<>();
         System.out.println(toto);
 
-        // IntelliJ bug : should complain
+        // should complain
         MyNonNullGenericClass<@Nullable String> titi = new MyNonNullGenericClass<>();
         System.out.println(titi);
 
