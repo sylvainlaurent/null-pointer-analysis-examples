@@ -1,19 +1,35 @@
 # null-pointer-analysis-examples
 
 Demonstrates capabilities of some java tools to analyze (potential) null references. These tools are:
-- [eclipse (4.6)](https://www.eclipse.org)
-- [IntelliJ (2017.1)](https://www.jetbrains.com/idea/)
+- [eclipse (4.7)](https://www.eclipse.org)
+- [IntelliJ (2017.2)](https://www.jetbrains.com/idea/)
 - [The Checker Framework](https://checkerframework.org/)
 
 Open the various java sources and read the comments to have an understanding of various checks that can be done (or not)
 by these tools.
 
 :warning: It is NORMAL that your IDE shows errors in the source files if it supports some checks for null reference analysis.:warning:
-
 The default javac compiler does not report any error however.
 
+## Comparison
+
+Feature | Eclipse IDE 4.7.1 or jdt | Checker Framework | IntelliJ 2017.2.5
+------- | ------------------ | ----------------- | --------
+IDE support | :white_check_mark: | :white_check_mark: using plugin | :white_check_mark:
+Command line support | :white_check_mark: | :white_check_mark: | To be tested
+Java 8 type annotations support | :white_check_mark: | :white_check_mark: | :white_check_mark:
+Multiple annotations classes supported | :white_check_mark: | :white_check_mark: | :white_check_mark:
+External annotations support | :white_check_mark: using .eea files | :white_check_mark: using stubs files | :white_check_mark: using xml files
+External annotations provided for common libraries | :red_circle: community effort with [lastnpe.org](http://lastnpe.org)| :white_check_mark: JDK, Guava | :white_check_mark: JDK
+IDE support to create external annotations | :white_check_mark: | :warning: using command line tools | :white_check_mark:
+Treat all types as @Nonnull by default, unless annotated wih @Nullable | :white_check_mark: using @NonNullByDefault for each package, allows to define the scope: field, parameters, return, generic types, etc... | :white_check_mark: by default, customizable with @DefaultQualifier | :white_check_mark: 
+@Polynull support | :red_circle: | :white_check_mark: using [@PolyNull](https://checkerframework.org/manual/#qualifier-polymorphism) | :white_check_mark: using [@Contract](https://www.jetbrains.com/help/idea/2017.1/contract-annotations.html), for instance @Contract("!null->!null;null->null")
+Method contract support (e.g. handle ``if(StringUtils.hasText(str)) {str...}`` | :red_circle: | :question: | :white_check_mark: using @Contract
+Automatic inference of nullability constraints in external libraries | :red_circle: | :red_circle: | :white_check_mark: for @NonNull and some @Contract. [Disabled for @Nullable due to too many false positives](https://youtrack.jetbrains.com/issue/IDEA-130063)
+Treat main, test or generated sources differently | :warning: not in IDE, unless ignoring all non-fatal errors for a source folder| :white_check_mark: | :white_check_mark:
+
 ## Eclipse
-Last version tested: eclipse 4.6.3.
+Last version tested: eclipse 4.7.1
 
 The best analysis is performed using [external annotations](http://help.eclipse.org/neon/topic/org.eclipse.jdt.doc.user/tasks/task-using_external_null_annotations.htm?cp=1_3_9_2).
 
@@ -212,19 +228,3 @@ $ mvn clean test -P checker-framework
 /Users/slaurent/Developer/repos/null-pointer-analysis-examples/src/main/java/test/EverythingNonNullByDefault.java:[25,11] error: [initialization.fields.uninitialized] the constructor does not initialize fields: address
 ...
 ```
-## Comparison
-
-Feature | Eclipse IDE or jdt | Checker Framework | IntelliJ
-------- | ------------------ | ----------------- | --------
-IDE support | :white_check_mark: | :white_check_mark: using plugin | :white_check_mark:
-Command line support | :white_check_mark: | :white_check_mark: | :red_circle:
-Java 8 type annotations support | :white_check_mark: | :white_check_mark: | :red_circle: ``List<@Nonnull String>`` is the same as ``List<String>``, no error for ``list.add(null)``.
-Multiple annotations classes supported | :white_check_mark: | :white_check_mark: | :white_check_mark:
-External annotations support | :white_check_mark: using .eea files | :white_check_mark: using stubs files | :white_check_mark: using xml files
-External annotations provided for common libraries | :red_circle: community effort with [lastnpe.org](http://lastnpe.org)| :white_check_mark: JDK, Guava | :white_check_mark: JDK
-IDE support to create external annotations | :white_check_mark: | :warning: using command line tools | :white_check_mark:
-Treat all types as @Nonnull by default, unless annotated wih @Nullable | :white_check_mark: using @NonNullByDefault for each package, allows to define the scope: field, parameters, return, generic types, etc... | :white_check_mark: by default, customizable with @DefaultQualifier | :white_check_mark: IDE setting :question: global?
-@Polynull support | :red_circle: | :white_check_mark: using [@PolyNull](https://checkerframework.org/manual/#qualifier-polymorphism) | :white_check_mark: using [@Contract](https://www.jetbrains.com/help/idea/2017.1/contract-annotations.html), for instance @Contract("!null->!null;null->null")
-Method contract support (e.g. handle ``if(StringUtils.hasText(str)) {str...}`` | :red_circle: | :question: | :white_check_mark: using @Contract
-Automatic inference of nullability constraints in external libraries | :red_circle: | :red_circle: | :white_check_mark: for @NonNull and some @Contract. [Disabled for @Nullable due to too many false positives](https://youtrack.jetbrains.com/issue/IDEA-130063)
-Treat main, test or generated sources differently | :warning: not in IDE, unless ignoring all non-fatal errors for a source folder| :white_check_mark: | :white_check_mark:
