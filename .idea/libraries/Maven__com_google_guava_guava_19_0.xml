@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Maven: com.google.guava:guava:19.0">
+    <ANNOTATIONS>
+      <root url="file://$PROJECT_DIR$/../intellij-external-annotations" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/19.0/guava-19.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/19.0/guava-19.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/19.0/guava-19.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
