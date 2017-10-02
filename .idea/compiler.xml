@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="no-external-annotations" />
+        <module name="with-external-annotations" />
+      </profile>
+      <profile name="Annotation profile for null-pointer-analysis-examples" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processor name="org.checkerframework.checker.nullness.NullnessChecker" />
+        <module name="null-pointer-analysis-examples" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="null-pointer-analysis-examples" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-Xbootclasspath/p:$PROJECT_DIR$/../../checker-framework-2.1.10/checker/dist/jdk8.jar" />
+  </component>
+</project>
