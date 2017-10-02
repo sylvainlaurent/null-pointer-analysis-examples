@@ -50,7 +50,7 @@ public class IntelliJNullabilityTest {
 
     }
 
-    static class MyNonNullGenericClass<@NonNull T extends @NonNull Object> {
+    static class MyNonNullGenericClass<T extends @NonNull Object> {
 
     }
 

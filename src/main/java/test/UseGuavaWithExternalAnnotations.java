@@ -18,5 +18,11 @@ public class UseGuavaWithExternalAnnotations {
         // should not complain
         nonNull2.toString();
 
+        MoreObjects.ToStringHelper helper = MoreObjects.toStringHelper(this);
+        if(helper != null) {
+            helper.toString();
+
+        }
+
     }
 }
