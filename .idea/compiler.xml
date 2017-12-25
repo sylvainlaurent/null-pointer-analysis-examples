@@ -8,14 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="no-external-annotations" />
-        <module name="with-external-annotations" />
-      </profile>
-      <profile name="Annotation profile for null-pointer-analysis-examples" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processor name="org.checkerframework.checker.nullness.NullnessChecker" />
         <module name="null-pointer-analysis-examples" />
+        <module name="with-external-annotations" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
